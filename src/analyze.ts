@@ -1,37 +1,29 @@
-export type DateProblem = {
-  problemString: string;
-  actualDay: string;
-};
+import { findProblemDates } from "./problems";
 
-export type Analysis =
-  | { found: false }
-  | { found: true; message: string };
 
-export function findDateProblems(text: string): DateProblem | null {
-  if (text.includes("Tuesday Jan 31")) {
-    return {
-      "problemString":"Tuesday Jan 31",
-      "actualDay":"Saturday"
-    }
-  }
-    if (text.includes("Wednesday Jan 31")) {
-    return {
-      "problemString":"Wednesday Jan 31",
-      "actualDay":"Saturday"
-    }
-  }
-  return null;
-}
+export type Analysis = { found: false } | { found: true; message: string };
 
 export function analyzeText(text: string): Analysis {
-  const res = findDateProblems(text);
+  const date = findProblemDates(text);
 
-  if (res === null) {
-    return { found: false };
-  }
+  return date
+    ? {
+        found: true,
+        message: formatDateMessage(date),
+      }
+    : { found: false };
+}
 
-  return {
-    found: true,
-    message: `${res.problemString} is a ${res.actualDay}`,
-  };
+export function formatDateMessage(date: Date): string {
+  const dateString = date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const weekday = date.toLocaleDateString("en-US", {
+    weekday: "long",
+  });
+
+  return `${dateString} is a ${weekday}`;
 }

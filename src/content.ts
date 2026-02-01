@@ -2,6 +2,8 @@ import { analyzeText } from "./analyze";
 
 let warned = false;
 
+let timer: number | null = null;
+
 function getText(el: HTMLElement): string {
   if (el.isContentEditable) {
     return el.innerText;
@@ -22,19 +24,23 @@ document.addEventListener("input", (event) => {
 
   if (!(el instanceof HTMLElement)) return;
 
-
   if (
-    el.isContentEditable ||
-    el.tagName === "INPUT" ||
-    el.tagName === "TEXTAREA"
-  ) {
+    !el.isContentEditable &&
+    el.tagName !== "INPUT" &&
+    el.tagName !== "TEXTAREA"
+  )
+    return;
+
+  if (timer !== null) {
+    clearTimeout(timer);
+  }
+
+  timer = window.setTimeout(() => {
     const text = getText(el);
-
     const analysis = analyzeText(text);
-
     if (analysis.found) {
       warned = true;
       alert(analysis.message);
     }
-  }
+  }, 200);
 });
