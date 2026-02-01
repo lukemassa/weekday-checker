@@ -1,4 +1,2 @@
-- Pass current date into ProblemFinder, then have it use that to see what year to assume
-    It probably makes sense to say the "closest" date? Like if they say "Jan 1" and it's Feb 1, 2026, assume they mean 2026, but if it's Dec 1 2026, assume they mean 2027.
 - Handle the situation where the user is *going to specify* the year
     This might be tough, but if I say "Sat Jan 1, 2000" that shouldn't be wrong even if Jan 1 is a Sun "this year".

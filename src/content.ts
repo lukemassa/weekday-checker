@@ -4,7 +4,7 @@ const debounceDelay = 300;
 
 let timer: number | null = null;
 
-let p = new ProblemFinder();
+let p = new ProblemFinder(new Date());
 
 function getText(el: HTMLElement): string {
   if (el.isContentEditable) {
