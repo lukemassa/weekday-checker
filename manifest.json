@@ -1,7 +1,7 @@
 {
-  "name": "Check Day of the Week Trigger",
-  "description": "Alerts when you type a magic phrase",
-  "version": "0.1",
+  "name": "Weekday Checker",
+  "description": "Alerts when you type a day of the week and date, but they don't appear to match",
+  "version": "0.1.0",
   "manifest_version": 3,
   "content_scripts": [
     {

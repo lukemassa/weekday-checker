@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "esbuild src/content.ts --bundle --outfile=dist/content.js --format=iife --platform=browser",
+    "package": "npm run build && zip -r weekday-checker.zip manifest.json dist/content.js",
     "test": "node --test --import tsx",
     "fmt": "prettier --write ."
   },

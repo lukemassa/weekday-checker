@@ -18,10 +18,18 @@ TODO
 
 `npm test`
 
-### Build
+### Develop
 
-`npm run build`
+1. `npm run build`
+2. Go to chrome://extensions
+3. "Load Unpacked"
+4. Select directory
 
 ### Release
 
-The code has `manifest.json`, which refers to the built js in `dist/`
+1. `npm run package`
+2. This creates `weekday-checker.zip`, which should be uploaded Chrome Web Store (TODO: how?)
+
+## Known issues
+
+- By default we assume the year is whatever is closest to now. However if the user explicitly types a year, we should validate off that.
