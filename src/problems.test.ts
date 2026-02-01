@@ -29,6 +29,11 @@ test.test("allow for numbers after Tuesday Jan 1", () => {
   assert.equal(res, null);
 });
 
+test.test("allow for numbers after Tuesday Jan 3", () => {
+  const res = findProblemDates("Meet me Tuesday Jan 3");
+  assert.equal(res, null);
+});
+
 test.test("do not allow for numbers after Tuesday Jan 11", () => {
   const res = findProblemDates("Meet me Tuesday Jan 11");
   assert.ok(res);

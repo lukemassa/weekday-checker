@@ -43,9 +43,9 @@ export class ProblemFinder {
 
       const matchEndsAtEndOfInput =
         match.index + match[0].length === text.length;
-      // If the number is 1 and 2, and we're at the end of the string, it's possible the user will type more so leave it.
-      // If they started to type a 3, or they've already typed 11, then we don't need to skip, we have the full date
-      if (parseInt(day) < 3 && matchEndsAtEndOfInput) {
+      // If the number is 1, 2 or 3, and we're at the end of the string, it's possible the user will type more so leave it.
+      // If they started to type a 4, or they've already typed 11, then we don't need to skip, we have the full date
+      if (parseInt(day) < 4 && matchEndsAtEndOfInput) {
         continue;
       }
       const date = new Date(`${month} ${day}, ${year}`);
