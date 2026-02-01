@@ -1,5 +1,7 @@
 import { analyzeText } from "./analyze";
 
+const debounceDelay = 300;
+
 let warned = false;
 
 let timer: number | null = null;
@@ -42,5 +44,5 @@ document.addEventListener("input", (event) => {
       warned = true;
       alert(analysis.message);
     }
-  }, 200);
+  }, debounceDelay);
 });
