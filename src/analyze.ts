@@ -1,6 +1,5 @@
 import { findProblemDates } from "./problems";
 
-
 export type Analysis = { found: false } | { found: true; message: string };
 
 export function analyzeText(text: string): Analysis {
