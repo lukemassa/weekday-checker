@@ -10,6 +10,10 @@ TODO
 
 ## Developing
 
+### Setup
+
+`npm install`
+
 ### Test
 
 `npm test`
@@ -17,3 +21,7 @@ TODO
 ### Build
 
 `npm run build`
+
+### Release
+
+The code has `manifest.json`, which refers to the built js in `dist/`
