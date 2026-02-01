@@ -1,10 +1,10 @@
-import { analyzeText } from "./analyze";
+import { ProblemFinder } from "./problems";
 
 const debounceDelay = 300;
 
-let warned = false;
-
 let timer: number | null = null;
+
+let p = new ProblemFinder();
 
 function getText(el: HTMLElement): string {
   if (el.isContentEditable) {
@@ -19,9 +19,6 @@ function getText(el: HTMLElement): string {
 }
 
 document.addEventListener("input", (event) => {
-  // TODO: For now, you only get one warning per page load
-  if (warned) return;
-
   const el = event.target;
 
   if (!(el instanceof HTMLElement)) return;
@@ -39,9 +36,8 @@ document.addEventListener("input", (event) => {
 
   timer = window.setTimeout(() => {
     const text = getText(el);
-    const analysis = analyzeText(text);
+    const analysis = p.analyzeText(text);
     if (analysis.found) {
-      warned = true;
       alert(analysis.message);
     }
   }, debounceDelay);
