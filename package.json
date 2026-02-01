@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "esbuild src/content.ts --bundle --outfile=dist/content.js --format=iife --platform=browser",
+    "test": "node --test --import tsx"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^25.1.0",
+    "esbuild": "^0.27.2",
+    "tsx": "^4.21.0"
+  }
+}

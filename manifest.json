@@ -1,0 +1,12 @@
+{
+  "name": "Check Day of the Week Trigger",
+  "description": "Alerts when you type a magic phrase",
+  "version": "0.1",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/content.js"]
+    }
+  ]
+}
