@@ -8,6 +8,10 @@ For example, if it's Feb 1, 2026, then typing `Sunday February 4` pop up a warni
 
 TODO
 
+## Demo
+
+![Demo](assets/demo.gif)
+
 ## Developing
 
 ### Setup
@@ -15,10 +19,6 @@ TODO
 `npm install`
 
 ### Test
-
-`npm test`
-
-### Develop
 
 1. `npm run build`
 2. Go to chrome://extensions
