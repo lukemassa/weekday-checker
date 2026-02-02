@@ -10,7 +10,7 @@ TODO
 
 ## Demo
 
-![Demo](assets/demo.gif)
+![Demo](assets/demo-v2.gif)
 
 ## Developing
 
