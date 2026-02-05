@@ -83,22 +83,20 @@ export function formatDateMessage(date: Date, anchorDate: Date): string {
   });
 
   const dateYear = date.getFullYear();
+  const anchorYear = anchorDate.getFullYear();
 
   const weekday = date.toLocaleDateString("en-US", {
     weekday: "long",
   });
 
-  const yearDiff = date.getFullYear() - anchorDate.getFullYear();
-  switch (Math.sign(yearDiff)) {
-    case -1:
-      return `${dateString} was a ${weekday} in ${dateYear}`;
-    case 1:
-      return `${dateString} will be a ${weekday} in ${dateYear}`;
-    case 0:
-      return `${dateString} is a ${weekday} in ${dateYear}`;
+  if (dateYear > anchorYear) {
+    return `${dateString} will be a ${weekday} in ${dateYear}`;
+  }
+  if (dateYear < anchorYear) {
+    return `${dateString} was a ${weekday} in ${dateYear}`;
   }
 
-  return `${dateString} is a ${weekday}`;
+  return `${dateString} is a ${weekday} in ${dateYear}`;
 }
 
 // Gets the closest date to the anchor for the given month and day, not more than a year away.
