@@ -20,10 +20,43 @@ function findProblemDates(text: string): Date | null {
   return res.date;
 }
 
-test.test("format result for Jan 31", () => {
-  const res = formatDateMessage(new Date(2026, 0, 31));
-  assert.equal(res, "January 31, 2026 is a Saturday");
+test.test("format result for Jan 31 on the day", () => {
+  const res = formatDateMessage(new Date(2026, 0, 31), new Date(2026, 0, 31));
+  assert.equal(res, "January 31 is a Saturday in 2026");
 });
+
+test.test(
+  "format result for Jan 31 from the perspective of the previous Dec",
+  () => {
+    const res = formatDateMessage(
+      new Date(2026, 0, 31),
+      new Date(2025, 11, 31),
+    );
+    assert.equal(res, "January 31 will be a Saturday in 2026");
+  },
+);
+
+test.test(
+  "format result for Jan 31 from the perspective of later that year",
+  () => {
+    const res = formatDateMessage(
+      new Date(2026, 0, 31),
+      new Date(2026, 11, 31),
+    );
+    assert.equal(res, "January 31 is a Saturday in 2026");
+  },
+);
+
+test.test(
+  "format result for Dec 31 from the perspective of early next year",
+  () => {
+    const res = formatDateMessage(
+      new Date(2025, 11, 31),
+      new Date(2026, 0, 31),
+    );
+    assert.equal(res, "December 31 was a Wednesday in 2025");
+  },
+);
 
 test.test("detects tuesday Jan 31", () => {
   const res = findProblemDates("Meet me Tuesday Jan 31");

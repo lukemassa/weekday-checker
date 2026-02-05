@@ -30,7 +30,7 @@ export class ProblemFinder {
     this.alreadySeen.add(res.rawString);
     return {
       found: true,
-      message: formatDateMessage(res.date),
+      message: formatDateMessage(res.date, this.currentDate),
     };
   }
 
@@ -76,16 +76,27 @@ export class ProblemFinder {
   }
 }
 
-export function formatDateMessage(date: Date): string {
+export function formatDateMessage(date: Date, anchorDate: Date): string {
   const dateString = date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
-    year: "numeric",
   });
+
+  const dateYear = date.getFullYear();
 
   const weekday = date.toLocaleDateString("en-US", {
     weekday: "long",
   });
+
+  const yearDiff = date.getFullYear() - anchorDate.getFullYear();
+  switch (Math.sign(yearDiff)) {
+    case -1:
+      return `${dateString} was a ${weekday} in ${dateYear}`;
+    case 1:
+      return `${dateString} will be a ${weekday} in ${dateYear}`;
+    case 0:
+      return `${dateString} is a ${weekday} in ${dateYear}`;
+  }
 
   return `${dateString} is a ${weekday}`;
 }
