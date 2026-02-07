@@ -30,7 +30,7 @@ export class ProblemFinder {
     this.alreadySeen.add(res.rawString);
     return {
       found: true,
-      message: formatDateMessage(res.date),
+      message: formatDateMessage(res.date, this.currentDate),
     };
   }
 
@@ -76,18 +76,27 @@ export class ProblemFinder {
   }
 }
 
-export function formatDateMessage(date: Date): string {
+export function formatDateMessage(date: Date, anchorDate: Date): string {
   const dateString = date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
-    year: "numeric",
   });
+
+  const dateYear = date.getFullYear();
+  const anchorYear = anchorDate.getFullYear();
 
   const weekday = date.toLocaleDateString("en-US", {
     weekday: "long",
   });
 
-  return `${dateString} is a ${weekday}`;
+  if (dateYear > anchorYear) {
+    return `${dateString} will be a ${weekday} in ${dateYear}`;
+  }
+  if (dateYear < anchorYear) {
+    return `${dateString} was a ${weekday} in ${dateYear}`;
+  }
+
+  return `${dateString} is a ${weekday} in ${dateYear}`;
 }
 
 // Gets the closest date to the anchor for the given month and day, not more than a year away.
