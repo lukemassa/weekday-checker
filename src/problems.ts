@@ -17,12 +17,6 @@ export class ProblemFinder {
   }
 
   analyzeText(text: string): Analysis {
-    // If the text *no longer* contains the bad string, "forget it", so we can error on it later
-    for (const rawString of Array.from(this.alreadySeen)) {
-      if (!text.includes(rawString)) {
-        this.alreadySeen.delete(rawString);
-      }
-    }
     const res = this.findProblemText(text);
     if (res === null) {
       return { found: false };
