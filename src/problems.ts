@@ -1,9 +1,14 @@
 const dateRegexFactory = () =>
-  /(mon|monday|tue|tues|tuesday|wed|wednesday|thu|thurs|thursday|fri|friday|sat|saturday|sun|sunday),?\s+(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\s+([1-9][0-9]?)/gi;
+  /(mon|monday|tue|tues|tuesday|wed|wednesday|thu|thurs|thursday|fri|friday|sat|saturday|sun|sunday),?\s+(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\s+([1-9][0-9]?)(.{0,11})/gi;
 
 export type Analysis = { found: false } | { found: true; message: string };
 
 const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365;
+
+export type suffixSummary =
+  | { result: "no-year" }
+  | { result: "year-possible" }
+  | { result: "year-found"; year: number };
 
 export class ProblemFinder {
   // properties
@@ -19,7 +24,9 @@ export class ProblemFinder {
   analyzeText(text: string): Analysis {
     // If the text *no longer* contains the bad string, "forget it", so we can error on it later
     for (const rawString of Array.from(this.alreadySeen)) {
+      console.log("ALREADY SEEN", rawString);
       if (!text.includes(rawString)) {
+        console.log("I'm removing it");
         this.alreadySeen.delete(rawString);
       }
     }
@@ -43,20 +50,27 @@ export class ProblemFinder {
     while ((match = dateRegex.exec(text)) !== null) {
       const month = match[2].slice(0, 3).toLowerCase();
       const day = parseInt(match[3]); // regex has already validated this as number, so will not get NaN
-
+      const suffix = match[4];
       // We've already seen this one!
       if (this.alreadySeen.has(match[0])) {
         continue;
       }
 
-      const matchEndsAtEndOfInput =
-        match.index + match[0].length === text.length;
-      // If the number is 1, 2 or 3, and we're at the end of the string, it's possible the user will type more so leave it.
-      // If they started to type a 4, or they've already typed 11, then we don't need to skip, we have the full date
-      if (day < 4 && matchEndsAtEndOfInput) {
-        continue;
+      const suffixSummarized = summarizeSuffix(suffix);
+      let date: Date | null = null;
+      switch (suffixSummarized.result) {
+        case "no-year": {
+          date = getClosestDate(month, day, this.currentDate);
+          break;
+        }
+        case "year-found": {
+          date = getDate(month, day, suffixSummarized.year);
+          break;
+        }
+        case "year-possible": {
+          break;
+        }
       }
-      const date = getClosestDate(month, day, this.currentDate);
       if (date === null) {
         continue;
       }
@@ -74,6 +88,43 @@ export class ProblemFinder {
     }
     return null;
   }
+}
+
+export function summarizeSuffix(suffix: string): suffixSummary {
+  if (suffix.length === 0) {
+    return {
+      result: "year-possible",
+    };
+  }
+  // If first letter in suffix indicates "the end" we're done
+  if (["\n", "!", "."].includes(suffix[0])) {
+    return {
+      result: "no-year",
+    };
+  }
+  // If the user has typed 4 chars, and haven't a number, unlikely they will type one
+  if (suffix.length > 3 && !/\d/.test(suffix)) {
+    return {
+      result: "no-year",
+    };
+  }
+  let match = /(\d\d\d\d)/.exec(suffix);
+  if (match !== null) {
+    return {
+      result: "year-found",
+      year: parseInt(match[1]),
+    };
+  }
+  // Similarly, if we type 10 chars, and can't find four consecutive digits, unlikely it'll happen
+  if (suffix.length > 9) {
+    return {
+      result: "no-year",
+    };
+  }
+
+  return {
+    result: "year-possible",
+  };
 }
 
 export function formatDateMessage(date: Date, anchorDate: Date): string {

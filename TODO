@@ -1,2 +1,0 @@
-- Handle the situation where the user is *going to specify* the year
-    This might be tough, but if I say "Sat Jan 1, 2000" that shouldn't be wrong even if Jan 1 is a Sun "this year".

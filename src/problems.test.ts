@@ -5,6 +5,7 @@ import {
   formatDateMessage,
   getClosestDate,
   getDate,
+  summarizeSuffix,
 } from "./problems";
 
 const anchorDate = new Date(2026, 0, 1);
@@ -59,7 +60,7 @@ test.test(
 );
 
 test.test("detects tuesday Jan 31", () => {
-  const res = findProblemDates("Meet me Tuesday Jan 31");
+  const res = findProblemDates("Meet me Tuesday Jan 31.");
   assert.ok(res);
   assert.equal(res.getTime(), new Date(2026, 0, 31).getTime());
 });
@@ -70,14 +71,26 @@ test.test("allow for numbers after Tuesday Jan 1", () => {
 });
 
 test.test("allow for numbers after Tuesday Jan 3", () => {
-  const res = findProblemDates("Meet me Tuesday Jan 3");
+  const res = findProblemDates("Meet me Tuesday Jan 3 2");
   assert.equal(res, null);
 });
 
-test.test("do not allow for numbers after Tuesday Jan 11", () => {
-  const res = findProblemDates("Meet me Tuesday Jan 11");
+test.test("allow for text after Tuesday Jan 11", () => {
+  const res = findProblemDates("Meet me Tuesday Jan 11 something something");
   assert.ok(res);
   assert.equal(res.getTime(), new Date(2026, 0, 11).getTime());
+});
+
+test.test("Respect year on Tuesday Jan 11 2025", () => {
+  const res = findProblemDates("Meet me Tuesday Jan 11 2025");
+  assert.ok(res);
+  assert.equal(res.getTime(), new Date(2025, 0, 11).getTime());
+});
+
+test.test("Respect year on Tuesday Jan 11 2022", () => {
+  const res = findProblemDates("Meet me Tuesday Jan 11 2022");
+  // This was in fact a tuesday
+  assert.equal(res, null);
 });
 
 test.test("after a comma know the date is over", () => {
@@ -278,3 +291,49 @@ test.test(
     assert.equal(res, null);
   },
 );
+
+test.test("Empty suffix", () => {
+  const res = summarizeSuffix("");
+  assert.equal(res.result, "year-possible");
+});
+
+test.test("Suffix includes exclamation point", () => {
+  const res = summarizeSuffix("!");
+  assert.equal(res.result, "no-year");
+});
+
+test.test("Suffix doesn't start a year after a few chars", () => {
+  const res = summarizeSuffix(" and then");
+  assert.equal(res.result, "no-year");
+});
+
+test.test("Suffix potentially starts a year", () => {
+  const res = summarizeSuffix(" 2");
+  assert.equal(res.result, "year-possible");
+});
+
+test.test("Suffix starts with a letter", () => {
+  const res = summarizeSuffix("a");
+  assert.equal(res.result, "year-possible");
+});
+
+test.test("Suffix starts with a newline", () => {
+  const res = summarizeSuffix("\n");
+  assert.equal(res.result, "no-year");
+});
+
+test.test("Suffix started a year but then typed some more characters", () => {
+  const res = summarizeSuffix(" 2 hi");
+  assert.equal(res.result, "year-possible");
+});
+
+test.test("Suffix started a year but then typed many more characters", () => {
+  const res = summarizeSuffix(" 2 hi yeah so that's not a year anymore");
+  assert.equal(res.result, "no-year");
+});
+
+test.test("Suffix contains a year", () => {
+  const res = summarizeSuffix(" 2000");
+  assert.equal(res.result, "year-found");
+  assert.equal(res.year, 2000);
+});
