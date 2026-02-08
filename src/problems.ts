@@ -7,12 +7,12 @@ const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365;
 
 export class ProblemFinder {
   // properties
-  alreadySeen: Set<string>;
+  alreadySeen: Set<number>;
   currentDate: Date;
 
   // constructor to initialize properties
   constructor(currentDate: Date) {
-    this.alreadySeen = new Set<string>();
+    this.alreadySeen = new Set<number>();
     this.currentDate = currentDate;
   }
 
@@ -21,27 +21,20 @@ export class ProblemFinder {
     if (res === null) {
       return { found: false };
     }
-    this.alreadySeen.add(res.rawString);
+    this.alreadySeen.add(res.getTime());
+    console.log(this.alreadySeen);
     return {
       found: true,
-      message: formatDateMessage(res.date, this.currentDate),
+      message: formatDateMessage(res, this.currentDate),
     };
   }
 
-  private findProblemText(text: string): {
-    date: Date;
-    rawString: string;
-  } | null {
+  private findProblemText(text: string): Date | null {
     let dateRegex = dateRegexFactory();
     let match: RegExpExecArray | null;
     while ((match = dateRegex.exec(text)) !== null) {
       const month = match[2].slice(0, 3).toLowerCase();
       const day = parseInt(match[3]); // regex has already validated this as number, so will not get NaN
-
-      // We've already seen this one!
-      if (this.alreadySeen.has(match[0])) {
-        continue;
-      }
 
       const matchEndsAtEndOfInput =
         match.index + match[0].length === text.length;
@@ -55,6 +48,10 @@ export class ProblemFinder {
         continue;
       }
 
+      // We've already seen this one!
+      if (this.alreadySeen.has(date.getTime())) {
+        continue;
+      }
       const actualWeekday = date
         .toLocaleDateString("en-US", { weekday: "short" })
         .toLowerCase();
@@ -64,7 +61,7 @@ export class ProblemFinder {
       if (foundWeekday === actualWeekday) {
         continue;
       }
-      return { date, rawString: match[0] };
+      return date;
     }
     return null;
   }
