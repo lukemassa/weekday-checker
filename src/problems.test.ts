@@ -17,7 +17,7 @@ function findProblemDates(text: string): Date | null {
   if (res === null) {
     return null;
   }
-  return res.date;
+  return res;
 }
 
 test.test("format result for Jan 31 on the day", () => {
@@ -134,9 +134,13 @@ test.test("Update errors as you go", () => {
   const res4 = p.analyzeText("meet me tues, jan 31.");
   assert.equal(res4.found, false);
 
-  // However there should be other errors.
-  const res5 = p.analyzeText("meet me tues, jan 31. Or wed, jan 31");
-  assert.equal(res5.found, true);
+  // Do not error about the same date but in a different format
+  const res5 = p.analyzeText("meet me tues, jan 31. Or tues, january 31");
+  assert.equal(res5.found, false);
+
+  // But do error about a different date
+  const res6 = p.analyzeText("meet me tues, jan 31. Or mon, jan 30");
+  assert.equal(res6.found, true);
 });
 
 // Tests for getClosestDate
