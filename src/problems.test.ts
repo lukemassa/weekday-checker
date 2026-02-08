@@ -127,12 +127,16 @@ test.test("Update errors as you go", () => {
   const res2 = p.analyzeText("meet me tues, jan 31. Something else");
   assert.equal(res2.found, false);
 
-  // After a reset, the error should show up again
+  // After a reset, the error should not show up again
   const res3 = p.analyzeText("meet me");
   assert.equal(res3.found, false);
 
   const res4 = p.analyzeText("meet me tues, jan 31.");
-  assert.equal(res4.found, true);
+  assert.equal(res4.found, false);
+
+  // However there should be other errors.
+  const res5 = p.analyzeText("meet me tues, jan 31. Or wed, jan 31");
+  assert.equal(res5.found, true);
 });
 
 // Tests for getClosestDate
