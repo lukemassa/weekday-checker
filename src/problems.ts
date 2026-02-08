@@ -22,7 +22,6 @@ export class ProblemFinder {
       return { found: false };
     }
     this.alreadySeen.add(res.getTime());
-    console.log(this.alreadySeen);
     return {
       found: true,
       message: formatDateMessage(res, this.currentDate),
