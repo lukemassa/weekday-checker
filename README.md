@@ -25,15 +25,17 @@ It is designed to be non-invasive, doesn't make any external calls, and doesn't 
 
 ### Requirements
 
-* macOS
-* Node.js 25.1.0
-* npm 11.6.2
+Building requires Node.js and npm, which can be installed from [nodejs.org](https://nodejs.org/).
 
-Node.js and npm can be installed from [nodejs.org](https://nodejs.org/).
+The following build environments are known to work:
+
+* macOS 26.5.2, Node.js 26.3.0, npm 11.16.0
+* Debian GNU/Linux 12 (bookworm), Node.js 18.20.4, npm 9.2.0
+
 
 ### Setup
 
-`npm install`
+`npm ci`
 
 ### Test
 
@@ -56,6 +58,8 @@ Node.js and npm can be installed from [nodejs.org](https://nodejs.org/).
 
    * Chrome Web Store (TODO: how?)
    * Firefox Add-ons (TODO: how?)
+
+3. `npm run package-source` creates `weekday-checker-source.zip`, which should be uploaded as the source code for Firefox Add-ons.
 
 ## Known issues
 
