@@ -6,6 +6,7 @@
     "test": "node --test --import tsx",
     "fmt": "prettier --write ."
   },
+  "packageManager": "npm@11.6.2",
   "type": "module",
   "devDependencies": {
     "@types/node": "^25.1.0",
