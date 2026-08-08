@@ -11,7 +11,7 @@ Install [Weekday Checker in the Chrome Web Store](https://chromewebstore.google.
 
 ### Firefox
 
-Install Weekday Checker from Firefox Add-ons. <!-- TODO: add link once published -->
+Coming soon
 
 ## How it works
 
