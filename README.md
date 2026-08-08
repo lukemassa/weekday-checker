@@ -6,9 +6,15 @@ A chrome plugin that scans text input and emits a warning if the day of the week
 
 ## Installation 
 
-## Installation
-
 Install [Weekday Checker in the Chrome Web Store](https://chromewebstore.google.com/detail/weekday-checker/phbbmhafgcohoiimbekcnnhoegcimfgm).
+
+## How it works
+
+The plugin watches text being written into text boxes and scans for snippets that look like dates including the day of the week. It then looks at the date closest to now, in the period 6 months ago to 6 months from now, and determines what day of the week that is. If that date differs from the one written in the text, it pops up a simple alert.
+
+After you clear the alert, it doesn't warn you again about that specific date in that specific text field.
+
+It is designed to be non-invasive, doesn't make any external calls, and doesn't store any information anywhere.
 
 ## Developing
 
