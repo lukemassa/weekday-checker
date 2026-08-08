@@ -23,6 +23,14 @@ It is designed to be non-invasive, doesn't make any external calls, and doesn't 
 
 ## Developing
 
+### Requirements
+
+* macOS
+* Node.js 25.1.0
+* npm 11.6.2
+
+Node.js and npm can be installed from [nodejs.org](https://nodejs.org/).
+
 ### Setup
 
 `npm install`
@@ -44,10 +52,10 @@ It is designed to be non-invasive, doesn't make any external calls, and doesn't 
 ### Release
 
 1. `npm run package`
-2. This creates `weekday-checker.zip`, which should be uploaded to:
+2. This builds the extension and creates `weekday-checker.zip`, which should be uploaded to:
 
    * Chrome Web Store (TODO: how?)
-   * Firefox Add-ons
+   * Firefox Add-ons (TODO: how?)
 
 ## Known issues
 
