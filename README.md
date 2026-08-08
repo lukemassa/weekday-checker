@@ -1,12 +1,17 @@
 ## Weekday Checker
 
-A chrome plugin that scans text input and emits a warning if the day of the week / date combo entered is invalid.
+A browser extension that scans text input and emits a warning if the day of the week / date combo entered is invalid.
 
 ![Demo](assets/demo-v2.gif)
+## Installation
 
-## Installation 
+### Chrome
 
 Install [Weekday Checker in the Chrome Web Store](https://chromewebstore.google.com/detail/weekday-checker/phbbmhafgcohoiimbekcnnhoegcimfgm).
+
+### Firefox
+
+Install Weekday Checker from Firefox Add-ons. <!-- TODO: add link once published -->
 
 ## How it works
 
@@ -24,16 +29,27 @@ It is designed to be non-invasive, doesn't make any external calls, and doesn't 
 
 ### Test
 
+#### Chrome
+
 1. `npm run build`
 2. Go to chrome://extensions
 3. "Load Unpacked"
 4. Select directory
 
+#### Firefox
+
+1. `npm run build`
+2. `npx web-ext run`
+
 ### Release
 
 1. `npm run package`
-2. This creates `weekday-checker.zip`, which should be uploaded Chrome Web Store (TODO: how?)
+2. This creates `weekday-checker.zip`, which should be uploaded to:
+
+   * Chrome Web Store (TODO: how?)
+   * Firefox Add-ons
 
 ## Known issues
 
-- By default we assume the year is whatever is closest to now. However if the user explicitly types a year, we should validate off that.
+* By default we assume the year is whatever is closest to now. However if the user explicitly types a year, we should validate off that.
+

@@ -8,5 +8,13 @@
       "matches": ["<all_urls>"],
       "js": ["dist/content.js"]
     }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "weekday-checker@lukemassa.com",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
 }
