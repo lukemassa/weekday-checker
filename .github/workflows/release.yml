@@ -1,0 +1,39 @@
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .node-version
+
+      - run: npm ci
+      - run: npm test
+      
+      - name: Build
+        run: VERSION="${GITHUB_REF_NAME#v}" npm run build
+
+      - name: Build extension artifact
+        run: zip -r weekday-checker.zip manifest.json dist/content.js
+
+      - name: Build source artifact
+        run: >
+          zip -r weekday-checker-source.zip
+          README.md package.json package-lock.json .node-version
+          manifest.json.tmpl src .github/workflows/release.yml
+
+      - name: Upload release assets
+        run: >
+          gh release upload "$GITHUB_REF_NAME"
+          weekday-checker.zip
+          weekday-checker-source.zip
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -41,25 +41,23 @@ The following build environments are known to work:
 
 #### Chrome
 
-1. `npm run build`
+1. `VERSION=0.0.0 npm run build`
 2. Go to chrome://extensions
 3. "Load Unpacked"
 4. Select directory
 
 #### Firefox
 
-1. `npm run build`
+1. `VERSION=0.0.0 npm run build`
 2. `npx web-ext run`
 
 ### Release
 
-1. `npm run package`
-2. This builds the extension and creates `weekday-checker.zip`, which should be uploaded to:
-
+1. Create and publish a GitHub release with a tag such as v1.2.0.
+2. Download `weekday-checker.zip` and `weekday-checker-source.zip` from the release.
+3. Upload to browser providers:
    * Chrome Web Store (TODO: how?)
    * Firefox Add-ons (TODO: how?)
-
-3. `npm run package-source` creates `weekday-checker-source.zip`, which should be uploaded as the source code for Firefox Add-ons.
 
 ## Known issues
 

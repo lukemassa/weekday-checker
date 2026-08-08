@@ -1,12 +1,9 @@
 {
   "scripts": {
-    "build": "esbuild src/content.ts --bundle --outfile=dist/content.js --format=iife --platform=browser",
-    "package": "npm run build && zip -r weekday-checker.zip manifest.json dist/content.js",
-    "package-source": "rm -f weekday-checker-source.zip && zip -r weekday-checker-source.zip README.md package.json package-lock.json manifest.json src",
+    "build": "esbuild src/content.ts --bundle --outfile=dist/content.js --format=iife --platform=browser && sed \"s/__VERSION__/${VERSION}/\" manifest.json.tmpl > manifest.json",
     "test": "node --test --import tsx",
     "fmt": "prettier --write ."
   },
-  "packageManager": "npm@11.6.2",
   "type": "module",
   "devDependencies": {
     "@types/node": "^25.1.0",
