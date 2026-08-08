@@ -6,7 +6,9 @@ A chrome plugin that scans text input and emits a warning if the day of the week
 
 ## Installation 
 
-TODO
+## Installation
+
+Install [Weekday Checker in the Chrome Web Store](https://chromewebstore.google.com/detail/weekday-checker/phbbmhafgcohoiimbekcnnhoegcimfgm).
 
 ## Developing
 
