@@ -19,7 +19,7 @@ jobs:
       - run: npm test
       
       - name: Build
-        run: VERSION="${GITHUB_REF_NAME#v}" npm run build
+        run: WEEKDAY_CHECKER_VERSION="${GITHUB_REF_NAME#v}" npm run build
 
       - name: Build extension artifact
         run: zip -r weekday-checker.zip manifest.json dist/content.js

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "esbuild src/content.ts --bundle --outfile=dist/content.js --format=iife --platform=browser && sed \"s/__VERSION__/${VERSION}/\" manifest.json.tmpl > manifest.json",
+    "build": "esbuild src/content.ts --bundle --outfile=dist/content.js --format=iife --platform=browser && sed \"s/__VERSION__/${WEEKDAY_CHECKER_VERSION-0.0.0}/\" manifest.json.tmpl > manifest.json",
     "test": "node --test --import tsx",
     "fmt": "prettier --write ."
   },

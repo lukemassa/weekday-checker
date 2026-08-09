@@ -41,14 +41,14 @@ The following build environments are known to work:
 
 #### Chrome
 
-1. `VERSION=0.0.0 npm run build`
+1. `npm run build`
 2. Go to chrome://extensions
 3. "Load Unpacked"
 4. Select directory
 
 #### Firefox
 
-1. `VERSION=0.0.0 npm run build`
+1. `npm run build`
 2. `npx web-ext run`
 
 ### Release
