@@ -1,6 +1,9 @@
 {
   "scripts": {
     "build": "esbuild src/content.ts --bundle --outfile=dist/content.js --format=iife --platform=browser && sed \"s/__VERSION__/${WEEKDAY_CHECKER_VERSION-0.0.0}/\" manifest.json.tmpl > manifest.json",
+    "package": "zip -r weekday-checker.zip manifest.json dist/content.js",
+    "package-source": "zip -r weekday-checker-source.zip README.md package.json package-lock.json .node-version manifest.json.tmpl src .github/workflows/release.yml",
+    "clean": "rm -rf manifest.json dist/ weekday-checker.zip weekday-checker-source.zip",
     "test": "node --test --import tsx",
     "fmt": "prettier --write ."
   },
