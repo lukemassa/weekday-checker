@@ -6,13 +6,15 @@ A browser extension that scans text input and emits a warning if the day of the 
 
 ## Installation
 
+Feel free to reach out/open an Issue if you'd like to see this on a different browser!
+
 ### Chrome
 
 Install [Weekday Checker in the Chrome Web Store](https://chromewebstore.google.com/detail/weekday-checker/phbbmhafgcohoiimbekcnnhoegcimfgm).
 
 ### Firefox
 
-Coming soon
+Install [Weekday Checker from Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/weekday-checker/)
 
 ## How it works
 
