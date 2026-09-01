@@ -13,8 +13,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version-file: .node-version
           cache: "npm"
 
       - run: npm ci
       - run: npm test
+
+      - run: npm run fmt
+      - run: git diff --exit-code
